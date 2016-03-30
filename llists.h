@@ -25,7 +25,7 @@ struct ListNode {
  */
 template <typename T>
 class LinkedList {
- private:
+ protected:
   shared_ptr<ListNode<T>> head;
   shared_ptr<ListNode<T>> tail;
 

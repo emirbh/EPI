@@ -6,26 +6,134 @@
 
 using std::shared_ptr;
 using std::vector;
+using std::make_shared;
+
+#include "idebug.h"
+#include "trees.h"
+#include "llists.h"
 
 /*******************************************************************************
  *  class Bst
  */
 template <typename T>
-class Bst {
+class Bst : public BinaryTree<T> {
  public:
-  Bst(vector<T> &v) {
-    (void)v;
+  Bst() : BinaryTree<T>() {
+  }
+
+  Bst(vector<T> &v) : BinaryTree<T>(v) {
   }
 
   bool isBst() {
-    return true;
+    return this->isBstHelper(this->root, numeric_limits<T>::min(),
+                             numeric_limits<T>::max(), 0);
   }
 
- private:
-  struct Node {
-    T data;
-    shared_ptr<Node> left, right;
-  };
+  T findSuccessor(T value) {
+    shared_ptr<BinaryTreeNode<T>> node = findNodeHelper(value);
+    shared_ptr<BinaryTreeNode<T>> successor = findSuccessorHelper(node, 0);
+    return successor->data;
+  }
+
+  void fromSorted(vector<T> &v) {
+    this->root = fromSortedHelper(v, 0, static_cast<int>(v.size()), 0);
+  }
+
+  void fromLinkedList(LinkedList<T> &l) {
+    (void) l;
+    /*
+    int size = l.size();
+    this->root = fromLinkedListHelper(l, 0, size, 0);
+     */
+  }
+
+ protected:
+  bool isBstHelper(shared_ptr<BinaryTreeNode<T>> node, const T &lower,
+                   const T&upper, int level) {
+    iLog(level, "Check %d", node->data);
+    if(!node->data) {
+      return true;
+    } else if(node->data < lower || node->data > upper) {
+      return false;
+    }
+    return (node->left ?
+            isBstHelper(node->left, lower, node->data, level+1) : true) &&
+           (node->right ?
+            isBstHelper(node->right, node->data, upper, level+1) : true);
+  }
+
+  shared_ptr<BinaryTreeNode<T>> findNodeHelper(T value) {
+    shared_ptr<BinaryTreeNode<T>> node = this->root;
+    iLog(1, "Find node for %d", value);
+    while(node) {
+      if(node->data == value) {
+        iLog(0, "Found node for %d", value);
+        break;
+      } else if(value < node->data) {
+        node = node->left;
+      } else /* if(value > node->data) */ {
+        node = node->right;
+      }
+    }
+    return node;
+  }
+
+  shared_ptr<BinaryTreeNode<T>> findSuccessorHelper(
+      shared_ptr<BinaryTreeNode<T>> node, int level) {
+    /*
+     *  first cheeck if node has right sub-tree and go all the way left
+     */
+    if(node->right) {
+      iLog(level, "Take right node for %d", node->data);
+      node = node->right;
+      auto left = node->left;
+      while(node->left)
+        iLog(level+1, "Take left node for %d", node->data);
+        node = node->left;
+      return node;
+    }
+
+    /*
+     *  now find first parent where node is not the right child
+     */
+    while(node->parent && node->parent->right == node) {
+      node = node->parent;
+    }
+
+    return node->parent;
+  }
+
+  shared_ptr<BinaryTreeNode<T>> fromSortedHelper(vector<T> &v, int s, int e,
+                                                 int l) {
+    int m = s + (e - s)/2;
+    if(m >= e)
+      return nullptr;
+
+    shared_ptr<BinaryTreeNode<T>> node = make_shared<BinaryTreeNode<T>>(v[m]);
+
+    iLog(l, "Created node %d", v[m]);
+
+    node->left = fromSortedHelper(v, s, m, l + 1);
+    if(node->left)
+      node->left->parent = node;
+
+    node->right = fromSortedHelper(v, m+1, e, l + 1);
+    if(node->right)
+      node->right->parent = node;
+
+    return node;
+  }
+
+  /*
+  shared_ptr<BinaryTreeNode<T>> fromLinkedListHelper(vector<T> &v, int s, int e,
+                                                 int l) {
+    (void) v;
+    (void) s;
+    (void) e;
+    (void) l;
+    return nullptr;
+  }
+   */
 };
 
 /*******************************************************************************
@@ -45,7 +153,7 @@ class BstRbNode {
       : key(key), isRed(true), left(nullptr), right(nullptr) {
   }
 
- private:
+ protected:
 };
 
 /*******************************************************************************
@@ -68,7 +176,7 @@ class BstRbTree {
     printBstRbTree(root, level);
   }
 
- private:
+ protected:
   shared_ptr<BstRbNode<T>> root;
 
   shared_ptr<BstRbNode<T>> addNode(shared_ptr<BstRbNode<T>> parent, T key) {

@@ -6,6 +6,7 @@ rm .*.swp ; vim .vim \
     graphs.h \
     heaps.h \
     hashes.h \
+    intractability.h \
     llists.h \
     metas.h \
     primitive.h \
@@ -25,4 +26,6 @@ rm .*.swp ; vim .vim \
     13-sorting.cc \
     14-binary-search-trees.cc \
     15-meta-algorithms.cc \
-    16-algorithms-on-graphs.cc
+    16-algorithms-on-graphs.cc \
+    17-intractability.cc \
+    README.txt

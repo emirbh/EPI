@@ -223,7 +223,7 @@ class BinaryTree {
     return curr;
   }
 
- private:
+ protected:
   struct NodeDepth {
     bool balanced;
     int maxDepth;

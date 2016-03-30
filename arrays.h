@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <queue>
 #include <array>
+#include <unordered_map>
 
 using std::vector;
 using std::pair;
@@ -17,6 +18,7 @@ using std::ceil;
 using std::floor;
 using std::queue;
 using std::array;
+using std::unordered_map;
 
 #include "idebug.h"
 
@@ -43,6 +45,17 @@ class ArrayOps {
       } else { // if( arr[equal] > pivot_value)
         swap(arr[equal], arr[larger--]);
       }
+    }
+  }
+
+  void nValuesSort(vector<T> v, vector<T> values) {
+    unordered_map<T, int> offsets;
+
+    for(int i = 0; i < (int) values.size(); i++) {
+      offsets[values[i]] = 0;
+    }
+
+    for(int i = 0; i < (int) v.size(); i++) {
     }
   }
 
@@ -90,23 +103,31 @@ class ArrayOps {
   vector<T> findZeroModN(vector<T> &v) {
     vector<T> prefixSum(v);
     for(size_t i = 0; i < prefixSum.size(); ++i) {
+      T prefixAdd = (i > 0) ? prefixSum[i-1] : 0;
+      iLog(1, "prefixSum[%d] = %d + %d", i, prefixSum[i], prefixAdd);
       prefixSum[i] += (i > 0) ? prefixSum[i-1] : 0;
+      iLog(2, "prefixSum[%d] = %d %% %d", i, prefixSum[i], v.size());
       prefixSum[i] %= v.size();
     }
     printContainer(prefixSum, "prefixSum");
-    vector<T> result(v.size(), -1);
+
+    vector<T> table(v.size(), -1);
     for(size_t i = 0; i < v.size(); i++) {
+      printContainer(table);
       if(prefixSum[i] == 0) {
+        iLog(1, "prefixSum[%d] == 0", i);
         vector<T> ans(i+1);
         iota(ans.begin(), ans.end(), 0);
         return ans;
-      } else if((int) result[prefixSum[i]] != -1) {
-        vector<T> ans(i - result[prefixSum[i]]);
-        iota(ans.begin(), ans.end(), result[prefixSum[i]] + 1);
+      } else if((int) table[prefixSum[i]] != -1) {
+        vector<T> ans(i - table[prefixSum[i]]);
+        iota(ans.begin(), ans.end(), table[prefixSum[i]] + 1);
+        return ans;
       }
-      result[prefixSum[i]] = i;
+      table[prefixSum[i]] = i;
     }
-    return result;
+    printContainer(table);
+    return table;
   }
 
   vector<T> getLongestIncreasingSubarray(vector<T> &v) {

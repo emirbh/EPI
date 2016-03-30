@@ -6,6 +6,7 @@
 #include <string>
 #include <array>
 #include <unordered_map>
+#include <cmath>
 
 using std::cout;
 using std::endl;
@@ -15,6 +16,7 @@ using std::max;
 using std::pair;
 using std::array;
 using std::unordered_map;
+using std::log2;
 
 #include "idebug.h"
 
@@ -29,13 +31,6 @@ class PrimitiveOps {
     while (x) {
       iLog(1, "\tPRE: x=%s, x&1=%d, result=%d", itob(x).c_str(), x&1, result);
 
-      /*
-      result ^= (x & 1);
-      x >>= 1;
-       */
-
-      /*
-       */
       result ^= 1;
       x &= (x - 1);
 
@@ -77,6 +72,20 @@ class PrimitiveOps {
     return x;
   }
 
+  vector<vector<T>> generatePowerSet(vector<T> &v) {
+    vector<vector<T>> powerSet;
+    for(int i = 0; i < (int) v.size(); i++) {
+      vector<T> subSet;
+      T bitset = v[i];
+      while(bitset) {
+        subSet.emplace_back(log2(bitset & ~(bitset - 1)));
+        bitset &= (bitset - 1);
+      }
+      powerSet.emplace_back(subSet);
+    }
+    return powerSet;
+  }
+
   string intToString(int i) {
     bool is_negative = false;
     if (i < 0) {
@@ -102,7 +111,7 @@ class PrimitiveOps {
   int stringToInt(string s) {
     int i = 0;
     bool is_negative = s[0] == '-';
-    for (size_t cntr=0; cntr<s.size(); cntr++) {
+    for (size_t cntr = is_negative ? 1 : 0; cntr<s.size(); cntr++) {
       if( !isdigit(s[cntr])) {
         throw std::invalid_argument("Invalid input: non-digit string");
       }
@@ -136,6 +145,14 @@ class PrimitiveOps {
     }
     std::reverse(result.begin(), result.end());
     return result;
+  }
+
+  T convertExcelColumnID(string col) {
+    int res = 0;
+    for(const char & c : col) {
+      res = res * 10 + (c - 'A' + 1);
+    }
+    return res;
   }
 
   T gcd( T t1, T t2 ) {

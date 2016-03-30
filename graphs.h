@@ -25,74 +25,34 @@ using std::hash;
 using std::array;
 
 /*******************************************************************************
- *  struct xDCoor
+ *  class PinsAndWires
  */
-struct xDCoor {
-  bool operator<(const xDCoor &that);
-  friend ostream & operator<<(ostream &output, const xDCoor &c);
-};
-
-struct OneDCoor : xDCoor {
-  int x;
-
-  OneDCoor(int x)
-      : x(x) {
-  }
-
-  bool operator<(const OneDCoor &that) {
-    return x < that.x;
-  }
-
-  friend ostream & operator<<(ostream &output, const OneDCoor &coor) {
-    output << "[" << coor.x << "]";
-    return output;
-  }
-};
-
-namespace std {
-  template <>
-  struct hash<OneDCoor> {
-    size_t operator()(const OneDCoor &coor) const {
-      return hash<int>()(coor.x);
-    }
-  };
-}
-
-/*******************************************************************************
- *  class Graph
- */
-template <typename Coor>
-class Graph {
+template <typename T>
+class PinsAndWires {
  public:
-  typedef array<Coor,2> EdgeVertices;
-  typedef vector<EdgeVertices> Edges;
-
-  Graph(Edges &e)
-      : edges(e), nVertices(0) {
+  PinsAndWires(vector<vector<T>> &m) : m(m) {
     initialize();
   }
 
-  void DFS() {
-  }
+ protected:
+  struct Vertex {
+    int d;
+    T data;
+    vector<Vertex *> edges;
+  };
 
-  void print() {
-    for(const EdgeVertices &e : edges) {
-      cout << e[0] << " -> " << e[1] << endl;
-    }
-  }
-
- private:
-  int nVertices;
-  Edges &edges;
+  vector<vector<T>> &m;
 
   void initialize() {
-    std::unordered_map<Coor, bool> set;
-    for(const EdgeVertices &ev : edges) {
-      Coor coor1 = ev[0];
-      auto it1 = set.find(coor1);
-      /*
-       */
+    /*
+    unordered_map<T,
+    for(int i = 0; i < (int) m.size(); i++) {
+      T id1 = m[i][0];
+      T id2 = m[i][1];
+
+      Vertex *v1 = new Vertex{-1, id1, new vector<Vertex *>()};
     }
+     */
   }
 };
 

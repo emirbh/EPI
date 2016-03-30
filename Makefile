@@ -33,7 +33,8 @@ TESTS = 05-primitive-types \
 				13-sorting \
 				14-binary-search-trees \
 				15-meta-algorithms \
-				16-algorithms-on-graphs
+				16-algorithms-on-graphs \
+				17-intractability
 
 # All headers.  Usually you shouldn't change this definition.
 HEADERS = $(SRC_DIR)/*.h \
@@ -77,6 +78,8 @@ SRCS_ = $(SRC_DIR)/*.cc $(SRC_DIR)/*.h $(HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES) -c $(SRC_DIR)/15-meta-algorithms.cc
 16-algorithms-on-graphs.o : $(SRC_DIR)/16-algorithms-on-graphs.cc $(HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES) -c $(SRC_DIR)/16-algorithms-on-graphs.cc
+17-intractability.o : $(SRC_DIR)/17-intractability.cc $(HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES) -c $(SRC_DIR)/17-intractability.cc
 
 #
 #	Targets
@@ -105,6 +108,8 @@ SRCS_ = $(SRC_DIR)/*.cc $(SRC_DIR)/*.h $(HEADERS)
 15-meta-algorithms : 15-meta-algorithms.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 16-algorithms-on-graphs : 16-algorithms-on-graphs.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+17-intractability : 17-intractability.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 

@@ -19,18 +19,20 @@ int main() {
 
   /*
    */
-  unsigned short x = 8;
+  unsigned short x = 10;
   unsigned short w = x - 1;
   unsigned short y = x & (x - 1);
+  unsigned short n = x & ~(x - 1);
+  unsigned short m = x & (x + 1);
   unsigned short z = x ^ 1;
   unsigned short t = x ^ 8;
   unsigned short s = x | 4;
   unsigned short r = x & 4;
   unsigned short p = x; p =~ x;
-  unsigned short m = x & (x + 1);
   cout << "x           =" << x << " \t[bin=" << itob(x) << "]" <<  endl;
   cout << "[x-1]       =" << w << " \t[bin=" << itob(w) << "]" <<  endl;
   cout << "[x &= (x-1)]=" << y << " \t[bin=" << itob(y) << "]" <<  endl;
+  cout << "[x &=~(x-1)]=" << n << " \t[bin=" << itob(n) << "]" <<  endl;
   cout << "[x &= (x+1)]=" << m << " \t[bin=" << itob(m) << "]" <<  endl;
   cout << "[x ^= 1]    =" << z << " \t[bin=" << itob(z) << "]" <<  endl;
   cout << "[x ^= 8]    =" << t << " \t[bin=" << itob(t) << "]" <<  endl;
@@ -90,6 +92,22 @@ int main() {
         cout << number << " : " << itob(number) << endl;
         break;
       }
+      /* ---- 05 ------------------------------------------------------------ */
+      case 5: {
+        /*
+         *  @TODO this is strange problem, maybe I should look at it some more
+         */
+        cout << "EPI: ";
+        cout << "Generate Power Set" << endl;
+        vector<unsigned long> v;
+        readArray(v);
+        printContainer(v, "Power Set of" );
+        vector<vector<unsigned long>> pset = ulBitOps.generatePowerSet(v);
+        for(const vector<unsigned long> &sset : pset) {
+          printContainer(sset, "Sub Set");
+        }
+        break;
+      }
       /* ---- 06 ------------------------------------------------------------ */
       case 6: {
         cout << "EPI: ";
@@ -114,6 +132,20 @@ int main() {
         cout << value1 << " = " << value2 << endl;
         break;
       }
+      /* ---- 08 ------------------------------------------------------------ */
+      case 8: {
+        cout << "EPI: ";
+        cout << "Excel Column ID to intreger" << endl;
+        /*
+         *
+         */
+        string col = "ZZ";
+        cin >> col;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        long value = slBitOps.convertExcelColumnID(col);
+        cout << col << " = " << value << endl;
+        break;
+      }
       /* ---- 10 ------------------------------------------------------------ */
       case 10: {
         cout << "EPI: ";
@@ -122,6 +154,33 @@ int main() {
         cin >> ul1 >> ul2;
         unsigned long ul = ulBitOps.gcd(ul1, ul2);
         cout << "gcd(" << ul1 << "," << ul2 << ")=" << ul << endl;
+        break;
+      }
+      /* ---- 12 ------------------------------------------------------------ */
+      case 12: {
+        cout << "EPI: ";
+        cout << "Rectangles Intersection" << endl;
+        vector<vector<unsigned long>> v;
+        readMatrix(v);
+        for(size_t i = 0; i < v.size(); i++) {
+          if(v[i].size() != 8) {
+            cout << "Invalid dscription of two rectangles." << endl;
+            continue;
+          }
+          PrimitiveOps<unsigned long>::Rectangle r1{
+            v[i][0], v[i][1], v[i][2], v[i][3]
+          };
+          PrimitiveOps<unsigned long>::Rectangle r2{
+            v[i][4], v[i][5], v[i][6], v[i][7]
+          };
+          if(ulBitOps.is_intersect(r1, r2)) {
+            PrimitiveOps<unsigned long>::Rectangle ri =
+              ulBitOps.intersection_rectangle(r1, r2);
+            cout << ri.x << ":" << ri.y << ":" << ri.width << ":" << ri.height;
+            cout << endl;
+          }
+          exit(1);
+        }
         break;
       }
     }

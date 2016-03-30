@@ -35,23 +35,37 @@ int main() {
           });
         break;
       }
-      /* ---- 02 ------------------------------------------------------------ */
-      case 2: {
+      /* ---- 03 ------------------------------------------------------------ */
+      case 3: {
+        /*
+         *  @POTENTIALLY
+         */
+        cout << "EPI: ";
+        cout << "Pins and Wires ->Lft & Right" << endl;
+        vector<vector<int>> m;
+        readMatrix(m);
         break;
       }
-      /* ---- 41 ------------------------------------------------------------ */
-      case 41: {
+      /* ---- 04 ------------------------------------------------------------ */
+      case 4: {
+        /*
+         *  @TODO Understand this, potentially implement
+         */
         cout << "EPI: ";
-        cout << "Graph Basics" << endl;
-        vector<int> v;
-        readArray(v);
-        Graph<OneDCoor>::Edges edges;
-        for(int i = 0; i < (int) v.size(); i += 2) {
-          Graph<OneDCoor>::EdgeVertices ev{{v[i], v[i+1]}};
-          edges.push_back(ev);
-        }
-        Graph<OneDCoor> g(edges);
-        g.print();
+        cout << "Strongly connected ?" << endl;
+        vector<vector<int>> m;
+        readMatrix(m);
+        break;
+      }
+      /* ---- 11 ------------------------------------------------------------ */
+      case 11: {
+        /*
+         *  @TODO Learn Floyd-Warshall algorithm for all nodes shortest path
+         */
+        cout << "EPI: ";
+        cout << "Strongly connected ?" << endl;
+        vector<vector<int>> m;
+        readMatrix(m);
         break;
       }
       default: {

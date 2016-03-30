@@ -88,26 +88,40 @@ int main() {
          */
         cout << "EPI: ";
         cout << "0 mod n Subset Sum" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v, "input");
+        int long n = 0;
+        cin >> n;
+        (void) n;
+        ArrayOps<int> iao;
+        vector<int> result = iao.findZeroModN(v);
+        printContainer(result, "result");
+        break;
+      }
+      /* ---- 45 ------------------------------------------------------------ */
+      case 45: {
+        cout << "EPI: ";
+        cout << "Subset Sum" << endl;
+
         vector<unsigned long> v;
         readArray(v);
         printContainer(v, "input");
-        unsigned long n = 0;
-        cin >> n;
-        (void) n;
-        vector<unsigned long> result = ulao.findZeroModN(v);
-        printContainer(result, "result");
+        unsigned long n = v.size();
+        unsigned long nsum;
+        cin >> nsum;
 
         /*
          *  General subset sum using either
          *  (i) recursive/exponential approach
          *  (ii) DP/quadratic approach
-        unsigned long nsum;
-        cin >> nsum;
+         */
         bool hasSubset = ulao.subsetSumExponential(v, n, nsum);
+        /*
         bool hasSubset = ulao.subsetSumDP(v, n, nsum);
+         */
         printContainer(v);
         cout << "Has subset=" << nsum << " : " << hasSubset << endl;;
-         */
         break;
       }
       /* ---- 06 ------------------------------------------------------------ */
@@ -327,6 +341,21 @@ int main() {
                    cout << p.first << ":" << p.second << endl;
                  });
         t.print();
+        break;
+      }
+      /* ---- 42 ------------------------------------------------------------ */
+      /*
+       *  @MAYBE take a look
+       */
+      case 42: {
+        cout << "EPI 6.1.2:";
+        cout << "4 values array sort" << endl;
+        vector<string> v;
+        readArray(v);
+        printContainer(v);
+        /*
+        nValuesSort(v);
+         */
         break;
       }
     }
