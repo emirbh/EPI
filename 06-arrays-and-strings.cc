@@ -164,6 +164,15 @@ int main() {
         }
         break;
       }
+      /* ---- 14 ------------------------------------------------------------ */
+      case 14: {
+        cout << "EPI:";
+        cout << "Print Matrix Spiral" << endl;
+        vector<vector<unsigned long>> m;
+        readMatrix(m);
+        ulao.printSpiral(m);
+        break;
+      }
       /* ---- 15 ------------------------------------------------------------ */
       case 15: {
         cout << "EPI:";

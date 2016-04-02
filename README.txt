@@ -18,6 +18,7 @@ Skipped:
 13.04 -
 14.08 -
 15.07 -
+16.08 -
 
 VERY IMPORTANT
 - ARRAYS (a lot of things I do not know) AND STRINGS

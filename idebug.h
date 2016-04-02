@@ -114,4 +114,16 @@ void readMatrix(vector<vector<T>> &m) {
   }
 }
 
+template <typename T>
+void printMatrix(vector<vector<T>> m, string label="") {
+  if(label != "")
+    cout << label << endl;
+  for(size_t i = 0; i < m.size(); i++) {
+    for(size_t j = 0; j < m[i].size(); j++) {
+      cout << m[i][j] << "\t ";
+    }
+    cout << endl;
+  }
+}
+
 #endif /* __DEBUG_H__ */

@@ -35,26 +35,64 @@ int main() {
           });
         break;
       }
+      /* ---- 02 ------------------------------------------------------------ */
+      case 2: {
+        cout << "EPI: ";
+        cout << "Production Sequence" << endl;
+        vector<string> d;
+        readArray(d);
+        string s, t;
+        cin >> s >> t;
+        ProductionSequence ps(d);
+        int result = ps.canProduce(s, t);
+        cout << "Found sequence " << s << " to " << t << " in " << result;
+        cout  << " steps." << endl;
+        break;
+      }
       /* ---- 03 ------------------------------------------------------------ */
       case 3: {
         /*
-         *  @POTENTIALLY
+         *  @MAYBE
          */
         cout << "EPI: ";
-        cout << "Pins and Wires ->Lft & Right" << endl;
+        cout << "Pins and Wires -> Left & Right" << endl;
+        int nVertices;
+        cin >> nVertices;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         vector<vector<int>> m;
         readMatrix(m);
+        Graph<int> g(nVertices);
+        for(int i = 0; i < (int) m.size(); i++) {
+          g.addEdge(m[i][0], m[i][1]);
+        }
+        g.print();
+        PinsAndWires<int> pnw(g);
+        bool aligned = pnw.arePinsLeftAndRight();
+        cout << "Pins are aligned = " << aligned << endl;
         break;
       }
       /* ---- 04 ------------------------------------------------------------ */
       case 4: {
-        /*
-         *  @TODO Understand this, potentially implement
-         */
         cout << "EPI: ";
-        cout << "Strongly connected ?" << endl;
+        cout << "Degree of Connectedness" << endl;
+        int nV;
+        cin >> nV;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         vector<vector<int>> m;
         readMatrix(m);
+        Graph<int> g(nV);
+        for(int i = 0; i < (int) m.size(); i++) {
+          g.addEdge(m[i][0], m[i][1]);
+        }
+        g.print();
+        ConnectivityDegree<int> cd(g);
+        /*
+         *  @TODO still do not know 2V and 2E connectedness (good terms ?)
+         */
+        bool is2EConnected = cd.is2VerticeConnected();
+        cout << "Graph is 2E-connected = " << is2EConnected << endl;
+        bool is2VConnected = cd.is2EdgeConnected();
+        cout << "Graph is 2V-connected = " << is2VConnected << endl;
         break;
       }
       /* ---- 11 ------------------------------------------------------------ */
