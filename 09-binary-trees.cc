@@ -49,6 +49,16 @@ int main() {
         cout << k << "-th node is " << node->data << endl;
         break;
       }
+      /* ---- 07 ------------------------------------------------------------ */
+      case 7: {
+        vector<char> v;
+        readArray(v);
+        BinaryTree<char> bt;
+        printContainer(v);
+        bt.reconstructFromPreorder(v);
+        bt.print();
+        break;
+      }
       default: {
         break;
       }

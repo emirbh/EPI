@@ -5,11 +5,15 @@
 #include <memory>
 #include <vector>
 #include <cmath>
+#include <stack>
+#include <memory>
 
 using std::cout;
 using std::endl;
 using std::shared_ptr;
 using std::vector;
+using std::stack;
+using std::make_shared;
 
 /*******************************************************************************
  *  class BinaryTreeNode
@@ -221,6 +225,32 @@ class BinaryTree {
       }
     }
     return curr;
+  }
+
+  /*****************************************************************************
+   *  reconstructFromPreorder()()
+   */
+  void reconstructFromPreorder(vector<T> v) {
+    stack<shared_ptr<BinaryTreeNode<T>>> s;
+    for(auto it = v.crbegin(); it != v.crend(); it++) {
+      if(*it == '0') {
+        s.push(nullptr);
+      } else {
+        shared_ptr<BinaryTreeNode<T>> l = s.top(); s.pop();
+        shared_ptr<BinaryTreeNode<T>> r = s.top(); s.pop();
+        /*
+        shared_ptr<BinaryTreeNode<T>> n = 
+          make_shared<BinaryTreeNode<T>>(
+              BinaryTreeNode<T>{*it, nullptr, l, r, 0});
+         */
+        shared_ptr<BinaryTreeNode<T>> n = 
+          make_shared<BinaryTreeNode<T>>(BinaryTreeNode<T>(*it));
+        n->left = l;
+        n->right = r;
+        s.emplace(n);
+      }
+    }
+    root = s.top();
   }
 
  protected:

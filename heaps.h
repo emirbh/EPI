@@ -197,13 +197,13 @@ class Heap {
 template <typename T>
 class HeapMerge {
  public:
-  HeapMerge(vector<vector<T>> &m) : m(m) {
+  HeapMerge() {
   }
 
   /*****************************************************************************
    *  merge()
    */
-  vector<T> merge() {
+  vector<T> merge(vector<vector<T>> &m) {
     vector<T> v;
     struct Min {
       T v;
@@ -242,8 +242,31 @@ class HeapMerge {
     return v;
   }
 
- private:
-  vector<vector<T>> &m;
+  /********
+   *  sortKIncreaseDecrease()
+   */
+  vector<T> sortKIncreaseDecrease(vector<T> &v) {
+    vector<vector<T>> m;
+    int startIdx = 0;
+    bool increasing = true;
+    for(size_t i = 1; i <= v.size(); i++) {
+      if(i == v.size() ||
+         (!increasing && v[i-1] <  v[i]) ||
+         ( increasing && v[i-1] >= v[i]) ) {
+        if(increasing) {
+          m.emplace_back(v.cbegin() + startIdx, v.cbegin() + i);
+        } else {
+          m.emplace_back(v.crbegin() + v.size() - i,
+                         v.crbegin() + v.size() - startIdx);
+        }
+        startIdx = i;
+        increasing = !increasing;
+      }
+    }
+    return merge(m);
+  }
+
+ protected:
 };
 
 /*******************************************************************************

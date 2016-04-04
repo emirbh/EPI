@@ -12,7 +12,7 @@ rm .*.swp ; vim .vim \
     primitive.h \
     searches.h \
     sorts.h \
-    stacks.h \
+    stacks-queues.h \
     trees.h \
     tries.h \
     05-primitive-types.cc \

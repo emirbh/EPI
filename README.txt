@@ -2,9 +2,6 @@ Problem Ranges
 1:40  Elements of Programming Interviews
 41:60 Problems found on the web, my problems
 
-Currently working on:
-EPI.06.18
-
 Skipped:
 05.08 -
 06.11 - 06-15
@@ -19,6 +16,10 @@ Skipped:
 14.08 -
 15.07 -
 16.08 -
+
+DO NOT UNDERSTAND
+06:04 - maxKSumPairs
+11:08 - k-th element from two arrays
 
 VERY IMPORTANT
 - ARRAYS (a lot of things I do not know) AND STRINGS
@@ -39,4 +40,4 @@ I do not knopw:
 - SORTING (two arrays k-th element, root, sorting like 11.4 ...)
 
 i- STACKS (postings list)
-MEDIANs ?
+MEDIANs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

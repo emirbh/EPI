@@ -52,18 +52,45 @@ int main() {
          */
         break;
       }
+      /* ---- 05 ------------------------------------------------------------ */
+      case 5: {
+        cout << "EPI: ";
+        cout << "Find Minimum in Cyclical Array" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        int min = findMinInCycle(v);
+        cout << "Min = " << min << endl;
+        break;
+      }
       /* ---- 07 ------------------------------------------------------------ */
       case 7: {
-        /*
-         *  @TODO Don't uderstand at all
-         */
+        cout << "EPI: ";
+        cout << "Completion Search" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v, "in");
+        int newSum;
+        cin >> newSum;
+        cout << "New Sum = " << newSum << endl;
+        int sigma = computeCompletionSearch(v, newSum);
+        cout << "Sigma = " << sigma << endl;
         break;
       }
       /* ---- 08 ------------------------------------------------------------ */
       case 8: {
-        /*
-         *  @TODO Don't uderstand at all
-         */
+        cout << "EPI: ";
+        cout << "Find k-th in two arrays" << endl;
+        vector<int> a, b;
+        readArray(a);
+        readArray(b);
+        printContainer(a, "a");
+        printContainer(b, "b");
+        int k;
+        cin >> k;
+        cout << "k = " << k << endl;
+        int kth = findKthInTwoArrays(a, b, k);
+        cout << "k-th element = " << kth << endl;
         break;
       }
       /* ---- 10 ------------------------------------------------------------ */

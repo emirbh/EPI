@@ -25,9 +25,21 @@ int main() {
         cout << "Merge multiple sources Flag" << endl;
         vector<vector<int>> m;
         readMatrix(m);
-        HeapMerge<int> h(m);
-        vector<int> v = h.merge();
+        HeapMerge<int> h;
+        vector<int> v = h.merge(m);
         printContainer(v);
+        break;
+      }
+      /* ---- 02 ------------------------------------------------------------ */
+      case 2: {
+        cout << "EPI: ";
+        cout << "K-Ineasing-Decreasing Sort" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        HeapMerge<int> h;
+        vector<int> sorted = h.sortKIncreaseDecrease(v);
+        printContainer(sorted);
         break;
       }
       /* ---- 03 ------------------------------------------------------------ */

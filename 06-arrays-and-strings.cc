@@ -99,6 +99,21 @@ int main() {
         printContainer(result, "result");
         break;
       }
+      /* ---- 13 ------------------------------------------------------------ */
+      case 13: {
+        cout << "EPI: ";
+        cout << "Rotate array" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v, "in");
+        int places;
+        cin >> places;
+        ArrayOps<int> iao;
+        iao.rotateArray(v, places);
+        printContainer(v, "out");
+        exit(0);
+        break;
+      }
       /* ---- 45 ------------------------------------------------------------ */
       case 45: {
         cout << "EPI: ";

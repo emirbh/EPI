@@ -104,10 +104,11 @@ class ArrayOps {
     vector<T> prefixSum(v);
     for(size_t i = 0; i < prefixSum.size(); ++i) {
       T prefixAdd = (i > 0) ? prefixSum[i-1] : 0;
-      iLog(1, "prefixSum[%d] = %d + %d", i, prefixSum[i], prefixAdd);
+      iLog(1, "prefixSum[%d] = (%d + %d) %% %d",
+           i, prefixSum[i], prefixAdd, v.size());
       prefixSum[i] += (i > 0) ? prefixSum[i-1] : 0;
-      iLog(2, "prefixSum[%d] = %d %% %d", i, prefixSum[i], v.size());
       prefixSum[i] %= v.size();
+      iLog(3, "prefixSum[%d] = %d", i, prefixSum[i]);
     }
     printContainer(prefixSum, "prefixSum");
 
@@ -120,14 +121,40 @@ class ArrayOps {
         iota(ans.begin(), ans.end(), 0);
         return ans;
       } else if((int) table[prefixSum[i]] != -1) {
+        iLog(1, "table[prefixSum[%d]=%d]!== -1", i, prefixSum[i]);
         vector<T> ans(i - table[prefixSum[i]]);
         iota(ans.begin(), ans.end(), table[prefixSum[i]] + 1);
         return ans;
       }
+      iLog(1, "table[prefixSum[%d]=%d] = %d", i, prefixSum[i], i);
       table[prefixSum[i]] = i;
     }
     printContainer(table);
     return table;
+  }
+
+  int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+  }
+
+  void rotateArray(vector<T> &v, int places) {
+    int cycles = gcd(v.size(), places);
+    int times = v.size()/cycles;
+
+    iLog(0, "cycles=%d timess=%d", cycles, times);
+
+    for(int i = 0; i < cycles; i++) {
+      iLog(0, "i=%d temp=%d", i, v[i]);
+      T temp = v[i];
+      for(int j = 0; j < times; j++) {
+        iLog(1, "swap v[%d]=%d and temp=%d",
+             (i+places*j), v[(i+places*j)%v.size()], temp);
+        std::swap(v[(i+places*j)%v.size()], temp);
+        printContainer(v, "\t\t\t");
+        iLog(3, "temp=%d", temp);
+      }
+      v[i] = temp;
+    }
   }
 
   vector<T> getLongestIncreasingSubarray(vector<T> &v) {

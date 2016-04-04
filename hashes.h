@@ -1,6 +1,10 @@
 #ifndef __HASHES_H__
 #define __HASHES_H__
 
+#include <string>
+
+using std::string;
+
 /*******************************************************************************
  *  getStringKey()
  */

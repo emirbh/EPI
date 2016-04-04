@@ -4,14 +4,6 @@ emir
 barucija
 hodzic
 
--1
-
-1
-3
-emir
-barucija
-hodzic
-
 3
 14
 All                                                                      
@@ -28,3 +20,6 @@ fun
 and                                                                      
 no                                                                       
 results
+
+-1
+

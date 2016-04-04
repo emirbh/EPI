@@ -4,7 +4,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-#include "stacks.h"
+#include "stacks-queues.h"
 
 int main() {
   int part;
@@ -34,6 +34,10 @@ int main() {
         }
         break;
       }
+      /* ---- 02 ------------------------------------------------------------ */
+      case 2: {
+        break;
+      }
       /* ---- 05 ------------------------------------------------------------ */
       case 5: {
         int nPegs, nDisks;
@@ -58,6 +62,7 @@ int main() {
       case 7: {
         vector<int> v;
         readArray(v);
+        printContainer(v);
         StackSort<int> s(v);
         stack<int> sorted = s.sort();
         while(!sorted.empty()) {
@@ -66,8 +71,31 @@ int main() {
         }
         break;
       }
-      /* ---- 02 ------------------------------------------------------------ */
-      case 2: {
+      /* ---- 09 ------------------------------------------------------------ */
+      case 9: {
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        QueueViaVector<int> qvv;
+        for(int i = 0; i < (int) v.size(); i++) {
+          qvv.enqueue(v[i]);
+        }
+        for(int i = 0; i < (int) v.size(); i++) {
+          cout << qvv.dequeue() << " ";
+        }
+        cout << endl;
+        break;
+      }
+      /* ---- 14 ------------------------------------------------------------ */
+      case 14: {
+        /*
+         *  @TODO this is from mock interview, implement
+         */
+        vector<vector<int>> m;
+        readMatrix(m);
+        printMatrix(m);
+        int t, max;
+        cin >> t >> max;
         break;
       }
     }

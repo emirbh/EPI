@@ -5,6 +5,7 @@
 #include <stack>
 #include <vector>
 #include <memory>
+#include <queue>
 
 using std::cout;
 using std::stack;
@@ -12,6 +13,7 @@ using std::vector;
 using std::pair;
 using std::unique_ptr;
 using std::length_error;
+using std::queue;
 
 #include "idebug.h"
 
@@ -27,6 +29,9 @@ class StackMax {
     return s.empty();
   }
 
+  /********
+   *
+   */
   const T& max(void) const {
     if(empty() == false) {
       return s.top().second;
@@ -34,6 +39,9 @@ class StackMax {
     throw length_error("Empty stack");
   }
 
+  /********
+   *
+   */
   T pop(void) {
     if(empty()) {
       throw length_error("Empty stack");
@@ -43,6 +51,9 @@ class StackMax {
     return ret;
   }
 
+  /********
+   *
+   */
   void push(const T &x) {
     s.emplace(x, std::max(x, empty() ? x : s.top().second));
   }
@@ -168,5 +179,55 @@ class StackSort {
   }
 };
 
+/*******************************************************************************
+ *  class QueueViaVector
+ */
+template <typename T>
+class QueueViaVector {
+ public:
+  QueueViaVector(const int &capacity=8) : count(0), head(0), tail(0) {
+    data.resize(capacity);
+  }
+
+  unsigned int max() {
+    return numeric_limits<unsigned int>::max();
+  }
+
+  void enqueue(T value) {
+    if(tail >= data.size()) {
+      data.resize(data.size()*2);
+    }
+
+    data[tail++] = value;
+    count++;
+  }
+
+  T dequeue() {
+    return data[head++];
+  }
+
+ protected:
+  unsigned int count, head, tail;
+  vector<T> data;
+};
+
+/*******************************************************************************
+ *  class SlidingTimeWindow
+ */
+class SlidingTimeWindow {
+ public:
+  SlidingTimeWindow(int time, int max) : window(time), max(max) {
+  }
+
+  void canAdd() {
+  }
+
+ private:
+  struct TimePoint {
+    int time, value;
+  };
+  queue<TimePoint> q;
+  int window, max;
+};
 
 #endif /* __STACKS_H__ */

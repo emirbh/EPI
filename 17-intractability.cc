@@ -52,6 +52,18 @@ int main() {
         es.evaluate();
         break;
       }
+      /* ---- 10 ------------------------------------------------------------ */
+      case 10: {
+        cout << "EPI: ";
+        cout << "Multiplication Minimum" << endl;
+        /*
+         *  @TODO try to understand this better
+         */
+        int exp;
+        cin >> exp;
+        MultiplicationMinimum mm(exp);
+        break;
+      }
       default: {
         break;
       }
