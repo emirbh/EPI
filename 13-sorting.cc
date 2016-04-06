@@ -7,12 +7,6 @@ using std::endl;
 #include "idebug.h"
 #include "sorts.h"
 
-template <typename T>
-struct Person : Groupable<T> {
- public:
-  string name;
-};
-
 int main() {
   int part;
   cin >> part;
@@ -36,26 +30,35 @@ int main() {
       }
       /* ---- 04 ------------------------------------------------------------ */
       case 4: {
-        /*
-         *  @TODO Complete
-         */
         vector<string> v;
         readArray(v);
         //printContainer(v);
-        vector<Person<string>> people(v.size()/2);
+
+        vector<Groupable<string>> people(v.size()/2);
         for(int i = 0; i < (int) v.size()/2; i++) {
-          Person<string> p;
+          Groupable<string> p;
           p.key = v[i*2];
           p.name = v[i*2+1];
           people[i] = p;
         }
         for_each(people.begin(), people.end(),
-                 [](const Person<string> &p) -> void {
+                 [](const Groupable<string> &p) -> void {
                  cout << p.key << ":" << p.name << endl; } );
         //GroupByKey<string>::group((vector<Groupable<string>> &) people);
         GroupByKey<string>::group((vector<Groupable<string>> &) people);
         break;
       }
+      /* ---- 10 ------------------------------------------------------------ */
+      case 10: {
+        vector<vector<int>> m;
+        readMatrix(m);
+        printMatrix(m, "---- in --------");
+        vector<pair<int, int>> intervals;
+        int max = CalendarConcurrency::getMaxConcurrency(m);
+        cout << "Max Concurrency = " << max << endl;
+        break;
+      }
+      /* ---- -1 ------------------------------------------------------------ */
       default: {
         break;
       }

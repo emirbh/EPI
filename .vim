@@ -1,4 +1,4 @@
-rm .*.swp ; vim .vim \
+rm .*.swp ; rm IN/.*.swp ; vim .vim \
     Makefile \
     idebug.h \
     arrays.h \

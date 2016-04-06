@@ -239,11 +239,11 @@ class BinaryTree {
         shared_ptr<BinaryTreeNode<T>> l = s.top(); s.pop();
         shared_ptr<BinaryTreeNode<T>> r = s.top(); s.pop();
         /*
-        shared_ptr<BinaryTreeNode<T>> n = 
+        shared_ptr<BinaryTreeNode<T>> n =
           make_shared<BinaryTreeNode<T>>(
               BinaryTreeNode<T>{*it, nullptr, l, r, 0});
          */
-        shared_ptr<BinaryTreeNode<T>> n = 
+        shared_ptr<BinaryTreeNode<T>> n =
           make_shared<BinaryTreeNode<T>>(BinaryTreeNode<T>(*it));
         n->left = l;
         n->right = r;
