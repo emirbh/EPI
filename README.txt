@@ -41,3 +41,5 @@ I do not knopw:
 
 i- STACKS (postings list)
 MEDIANs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+- interesting C++ thread reading on http://www.bogotobogo.com/cplusplus/C11/1_C11_creating_thread.php

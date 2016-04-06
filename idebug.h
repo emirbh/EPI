@@ -12,6 +12,7 @@ using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
+using std::to_string;
 using std::numeric_limits;
 using std::streamsize;
 using std::vector;

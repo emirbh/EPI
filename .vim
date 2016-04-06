@@ -9,6 +9,7 @@ rm .*.swp ; vim .vim \
     intractability.h \
     llists.h \
     metas.h \
+    parallel-computing.h \
     primitive.h \
     searches.h \
     sorts.h \
@@ -28,4 +29,5 @@ rm .*.swp ; vim .vim \
     15-meta-algorithms.cc \
     16-algorithms-on-graphs.cc \
     17-intractability.cc \
+    18-parallel-computing.cc \
     README.txt
