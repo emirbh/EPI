@@ -183,6 +183,17 @@ int main() {
         }
         break;
       }
+      /* ---- 14 ------------------------------------------------------------ */
+      case 14: {
+        cout << "EPI: ";
+        cout << "Divide" << endl;
+        int x, y;
+        cin >> x >> y;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        PrimitiveOps<int> pops;
+        int result = pops.divide(x, y);
+        cout << x << "/" << y << " = " << result << endl;
+      }
     }
 
     cin >> part;

@@ -203,6 +203,23 @@ class PrimitiveOps {
       return {0, 0, 0, 0};
     }
   }
+  
+  T divide(T x, T y, int level = 0) {
+    iLog(level, "%d / %d", x, y);
+    if(x < y) {
+      return 0;
+    }
+
+    int power = 0;
+    while((1 << power) * y <= x) {
+      power++;
+    }
+    T part = 1 << (power - 1);
+
+    iLog(level, "power=%d part=%d part*y = %d", power, part, part*y);
+
+    return part + divide(x - part * y, y, level + 1);
+  }
 };
 
 /******************************************************************************* *  class BigInt

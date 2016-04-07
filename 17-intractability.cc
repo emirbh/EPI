@@ -41,6 +41,18 @@ int main() {
         break;
       }
       /* ---- 09 ------------------------------------------------------------ */
+      case 3: {
+        cout << "EPI: ";
+        cout << "The most even split" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        pair<int,int> split = MostEvenSplit<int>::calculate(v);
+        cout << "Most even split is " << split.first << "/";
+        cout << split.second <<  endl;
+        break;
+      }
+      /* ---- 09 ------------------------------------------------------------ */
       case 9: {
         cout << "EPI: ";
         cout << "Expression Synthesis" << endl;

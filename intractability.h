@@ -5,12 +5,15 @@
 #include <numeric>
 #include <stack>
 #include <list>
+#include <unordered_set>
 
 using std::vector;
 using std::accumulate;
 using std::max;
 using std::stack;
 using std::list;
+using std::unordered_set;
+using std::pair;
 
 #include "idebug.h"
 
@@ -64,10 +67,10 @@ class ElectionTie {
       int j = k-1, level = 0;
       while(sum > 0 && j >= 0) {
         subsets[count].emplace_back(v[j]);
-        iLog(level, "v[%d] = %d", j, v[j]); 
+        iLog(level, "v[%d] = %d", j, v[j]);
         sum -= v[j];
         j--;
-        iLog(level++, "sum=%d j=%d", sum, j); 
+        iLog(level++, "sum=%d j=%d", sum, j);
       }
     }
   }
@@ -190,7 +193,7 @@ class ExpressionSynthesis {
     operands.pop_back(), operators.pop_back();
 
     operands.emplace_back(cur);
-    if(value - evaluateSequence(operands, operators, l+1) <= 
+    if(value - evaluateSequence(operands, operators, l+1) <=
          remainingInt(v, offset + 1)) {
       iLog(l, "4. evaluateHelper(ofset=%d) cur=%d", offset, cur);
       operators.emplace_back('+');
@@ -207,13 +210,15 @@ class ExpressionSynthesis {
    *  evaluate()
    */
   int evaluateSequence(vector<int> operands, vector<char> operators, int l=0) {
-    for(int i=0; i<l; i++) cout <<  "\t"; printContainer(operands, "CALCULATE operands");
-    for(int i=0; i<l; i++) cout <<  "\t"; printContainer(operators, "CALCULATE operators");
+    for(int i=0; i<l; i++)
+      cout <<  "\t"; printContainer(operands, "CALCULATE operands");
+    for(int i=0; i<l; i++)
+      cout <<  "\t"; printContainer(operators, "CALCULATE operators");
 
-    int operandIdx = 0;
     /*
      *  Evaluate '*' first
      */
+    int operandIdx = 0;
     stack<int> tempOperands;
     tempOperands.push(operands[operandIdx++]);
     for(const char &chOperator : operators) {
@@ -294,6 +299,35 @@ class MultiplicationMinimum {
     }
     return min_exp;
   }
+};
+
+/*******************************************************************************
+ *  class MostEvenSplit
+ */
+template <typename T>
+class MostEvenSplit {
+ public:
+  static pair<T,T> calculate(vector<T> &v) {
+    int sum = accumulate(v.cbegin(), v.cend(), 0);
+    unordered_set<T> isOk;
+    for(const T &item : v) {
+      for(int i = sum/2; i >= item; i--) {
+        iLog(0, "Item %d\tCheck %d", item, i);
+        if(isOk.find(i - item) == isOk.end()) {
+          iLog(1, "Add %d to isOk", i);
+          isOk.emplace(i);
+        }
+      } 
+    }
+    for(int i = sum/2; i > 0; i--) {
+      iLog(0, "Check if %d exists", i);
+      if(isOk.find(i) != isOk.end()) {
+        return pair<T,T>{sum - i,i};
+      }
+    }
+    return pair<T,T>{sum,0};
+  }
+ protected:
 };
 
 #endif /* __INTRACTABILITY_H__ */
