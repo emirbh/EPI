@@ -74,6 +74,17 @@ int main() {
         cout << "Max = " << result << endl;
         break;
       }
+      /* ---- 08 ------------------------------------------------------------ */
+      case 8: {
+        cout << "EPI: ";
+        cout << "Largest Rectangle Under Skyline" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        int result = LargestRectangle::calculate(v);
+        cout << "Max = " << result << endl;
+        break;
+      }
       /* ---- 40 ------------------------------------------------------------ */
       case 40: {
         cout << "EPI: ";

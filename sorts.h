@@ -108,12 +108,14 @@ class GroupByKey {
       swap(v[from->second], v[to->second]);
       if(--group_per_key[to->first]) {
         to->second++;
+        iLog(2, "New to->second %s->%d", to->first.c_str(), to->second);
       } else {
+        iLog(2, "Done with to %s", to->first.c_str());
         key_to_offset.erase(to);
       }
-    for_each(v.begin(), v.end(),
-             [](Groupable<T> &grp) -> void {
-               cout << "\t\t" << grp.key << ":" << grp.name << endl; } );
+      for_each(v.begin(), v.end(),
+               [](Groupable<T> &grp) -> void {
+                 cout << "\t\t" << grp.key << ":" << grp.name << endl; } );
     }
 
     cout << "Sorted ---------------------------------" << endl;

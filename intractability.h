@@ -36,7 +36,7 @@ class ElectionTie {
       return;
     }
     totalVotes >>= 1;
-    iLog(0, "Total Votes %d", totalVotes);
+    iLog(0, "Half Total Votes %d", totalVotes);
     /*
      * DP: set up Rows=(sum+1) * Cols=(n+1) matrix
      * already done in arrays.h:subsetSumDP()
@@ -92,6 +92,7 @@ class Knapsack {
 
   void packHelper(int weight) {
     printMatrix(m, "value/weight");
+    iLog(0, "Pack weight %d", weight);
     cout << endl;
 
     /*
@@ -117,14 +118,9 @@ class Knapsack {
       }
     }
 
-    /*
     cout << "\t";
-    for(size_t j = 0; j < m[0].size(); j++) { cout << m[j][0] << "\t "; }
+    for(size_t j = 0; j < m.size(); j++) { cout << m[j][0] << "\t "; }
     cout << endl;
-    cout << "\t";
-    for(size_t j = 0; j < m[1].size(); j++) { cout << m[j][1] << "\t "; }
-    cout << endl;
-     */
     printMatrix(table);
   }
 };

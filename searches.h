@@ -145,6 +145,7 @@ T computeCompletionSearch(vector<T> &v, T sum) {
     return sum/v.size();
   }
   int idx = lower - funcSigma.cbegin() - 1;
+  iLog(0, "Index of last good value value %d (%d)", idx, v[idx]);
   sigma = (sum - prefixSum[idx]) / (v.size() - 1 - idx);;
   return sigma;
 } 

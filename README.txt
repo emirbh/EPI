@@ -1,3 +1,20 @@
+BOTTOM LINE:
+ARRAYS
+STRINGS
+STACKS/QUEUES
+DP
+GRAPHS
+
+Sunday:
++ String Search
+Floyd-Warshall
++ Minimum Spanning Tree
++ Brief look at Re-visit 8-queen
+Permutations and Combinations
++ Threads
+Design
+Quickly take a look at sorting (qsort, merge, etc)
+
 Problem Ranges
 1:40  Elements of Programming Interviews
 41:60 Problems found on the web, my problems

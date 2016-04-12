@@ -183,6 +183,18 @@ int main() {
         }
         break;
       }
+      /* ---- 13 ------------------------------------------------------------ */
+      case 13: {
+        cout << "EPI: ";
+        cout << "Divide" << endl;
+        unsigned a, b;
+        cin >> a >> b;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        PrimitiveOps<unsigned int> pops;
+        unsigned x = pops.add(a, b);
+        cout << x << endl;
+        break;
+      }
       /* ---- 14 ------------------------------------------------------------ */
       case 14: {
         cout << "EPI: ";

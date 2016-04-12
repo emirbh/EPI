@@ -7,6 +7,7 @@
 #include <array>
 #include <cmath>
 #include <tuple>
+#include <stack>
 
 using std::cout;
 using std::endl;
@@ -22,6 +23,7 @@ using std::pow;
 using std::tuple;
 using std::get;
 using std::abs;
+using std::stack;
 
 #include "idebug.h"
 
@@ -410,5 +412,49 @@ class Cartesian2D {
     return minDist;
   }
 };
+
+/*******************************************************************************
+ *  class LargestRectangle
+ */
+class LargestRectangle {
+ public:
+  static int calculate(vector<int> A) {
+    stack<int> s;
+    vector<int> L, R;
+
+    for(int i = 0; i < (int) A.size(); i++) {
+      while(!s.empty() && A[s.top()] >= A[i]) {
+        s.pop();
+      }
+      L.emplace_back(s.empty() ? -1 : s.top());
+      s.push(i);
+    }
+
+    while(!s.empty()) s.pop();
+
+    for(int i = (int) A.size()-1; i >= 0; i--) {
+      while(!s.empty() && A[s.top()] >= A[i]) {
+        s.pop();
+      }
+      R.emplace_back(s.empty() ? A.size() - 1 : s.top());
+      s.push(i);
+    }
+
+    printContainer(L, "L");
+    printContainer(R, "R");
+
+    int maxRect = 0;
+    for(int i = 0; i < (int) A.size(); i++) {
+      if(maxRect < A[i] * (R[i] - L[i] - 1)) {
+        iLog(1, "New max at %d = %d (%d * (%d - %d - 1))",
+             i, A[i] * (R[i] - L[i] - 1), A[i], R[i], L[i]);
+      }
+      maxRect = std::max(maxRect, A[i] * (R[i] - L[i] - 1));
+    }
+
+    return maxRect;
+  }
+};
+
 
 #endif /* __METAS_H__ */

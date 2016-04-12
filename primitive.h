@@ -77,6 +77,7 @@ class PrimitiveOps {
     for(int i = 0; i < (int) v.size(); i++) {
       vector<T> subSet;
       T bitset = v[i];
+      iLog(0, "Bitset %d [%s]", bitset, itob(bitset).c_str());
       while(bitset) {
         subSet.emplace_back(log2(bitset & ~(bitset - 1)));
         bitset &= (bitset - 1);
@@ -202,6 +203,32 @@ class PrimitiveOps {
     } else {
       return {0, 0, 0, 0};
     }
+  }
+
+  unsigned multiply(unsigned x, unsigned y) {
+    unsigned sum = 0;
+    while (x) {
+      // Examines each bit of x.
+      if (x & 1) {
+        sum = add(sum, y);
+      }
+      x >>= 1, y <<= 1;
+    }
+    return sum;
+  }
+
+  static unsigned add(unsigned a, unsigned b) {
+    unsigned sum = 0, carryin = 0, k = 1, temp_a = a, temp_b = b;
+    while (temp_a || temp_b) {
+      iLog(0, "sum = %d, carryin = %d, k = %d, temp_a = %d, temp_b = %d",
+           sum, carryin, k, temp_a, temp_b);
+      unsigned ak = a & k, bk = b & k;
+      unsigned carryout = (ak & bk) | (ak & carryin) | (bk & carryin);
+      iLog(1, "ak = %d carryout = %d", ak, carryout);
+      sum |= (ak ^ bk ^ carryin);
+      carryin = carryout << 1, k <<= 1, temp_a >>= 1, temp_b >>= 1;
+    }
+    return sum | carryin;
   }
   
   T divide(T x, T y, int level = 0) {

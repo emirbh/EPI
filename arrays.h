@@ -141,7 +141,7 @@ class ArrayOps {
     int cycles = gcd(v.size(), places);
     int times = v.size()/cycles;
 
-    iLog(0, "cycles=%d timess=%d", cycles, times);
+    iLog(0, "places = %d cycles=%d times=%d", places, cycles, times);
 
     for(int i = 0; i < cycles; i++) {
       iLog(0, "i=%d temp=%d", i, v[i]);
@@ -149,8 +149,9 @@ class ArrayOps {
       for(int j = 0; j < times; j++) {
         iLog(1, "swap v[%d]=%d and temp=%d",
              (i+places*j), v[(i+places*j)%v.size()], temp);
+        printContainer(v, "\t\t\tpre");
         std::swap(v[(i+places*j)%v.size()], temp);
-        printContainer(v, "\t\t\t");
+        printContainer(v, "\t\t\tpost");
         iLog(3, "temp=%d", temp);
       }
       v[i] = temp;
