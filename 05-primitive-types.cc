@@ -136,9 +136,6 @@ int main() {
       case 8: {
         cout << "EPI: ";
         cout << "Excel Column ID to intreger" << endl;
-        /*
-         *
-         */
         string col = "ZZ";
         cin >> col;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -205,6 +202,15 @@ int main() {
         PrimitiveOps<int> pops;
         int result = pops.divide(x, y);
         cout << x << "/" << y << " = " << result << endl;
+      }
+      /* ---- 40 ------------------------------------------------------------ */
+      case 40: {
+        cout << "EPI: ";
+        cout << "Is double a palindrome" << endl;
+        int x;
+        cin >> x;
+        bool isPalindrome = PrimitiveOps<int>::isDecimalPalindrome(x);
+        cout << x << " is palindrome = " << isPalindrome << endl;
       }
     }
 

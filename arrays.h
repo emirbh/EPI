@@ -319,6 +319,80 @@ class ArrayOps {
       }
     }
   }
+
+  void separateZeroAndKeepOrder(vector<T> &v) {
+    int nonzIdx = 0, idx = 0;
+    while(idx < (int) v.size()) {
+      if(v[idx] != 0) {
+        swap(v[nonzIdx++], v[idx]);
+      }
+      idx++;
+    }
+  }
+
+  void sortCharsAndNumbers(vector<T> &v) {
+    vector<pair<int,T *>> vp;
+    for(int i = 0; i < (int) v.size(); i++) {
+       if(v[i] > '0' && v[i] <= '9' && v[i] > '0' && v[i] <= '9') {
+         vp.emplace_back(pair<int,T *>{i, &v[i]});
+       }
+    }
+    for_each(vp.cbegin(), vp.cend(), [](const pair<int, T *> &p) -> void {
+             cout << "[" << p.first << "]=" << *p.second << " ";
+             });
+    cout << endl;
+    sort(vp.begin(), vp.end(),
+         [](const pair<int,T *> &a, const pair<int,T *> &b) -> bool {
+           return *a.second < *b.second;
+         });
+    for_each(vp.cbegin(), vp.cend(), [](const pair<int, T *> &p) -> void {
+             cout << "[" << p.first << "]=" << *p.second << " ";
+             });
+    cout << endl;
+    for(int i = 0; i < (int) vp.size(); i++) {
+    }
+    vp.clear();
+
+
+
+    /*
+    sort(v.begin(), v.end(),
+         [&v](const char &a, const char &b) -> bool {
+           bool ret = false;
+           int check = 0;
+           if(a > '0' && a <= '9' && b > '0' && b <= '9') {
+             check = 1;
+             ret = a < b;
+           } else if((a > '0' && a <= '9') || (b > '0' && b <= '9')) {
+             check = 3;
+             ret = false;
+           } else {
+             check = 5;
+             ret = a < b;
+           }
+           iLog(check*2, "Compare %c : %c = %d [check %d]", a, b, ret, check);
+           return ret;
+         });
+     */
+  }
+
+  T maxProfitWithTwoTrades(vector<T> &v) {
+    T maxProfit = 0, minPrice = numeric_limits<T>::max();
+    vector<T> firstBuySellProfit(v.size(), 0);
+    for(size_t i = 0; i < v.size(); i++) {
+      minPrice = min(minPrice, v[i]);
+      maxProfit = max(maxProfit, v[i] - minPrice);
+      firstBuySellProfit[i] = maxProfit;
+    }
+    printContainer(firstBuySellProfit, "firstBuySellProfit");
+    T maxPriceSoFar = numeric_limits<T>::min();
+    for(size_t i = v.size() - 1; i > 0; i--) {
+      maxPriceSoFar = max(maxPriceSoFar, v[i]);
+      maxProfit = max(maxProfit,
+                      maxPriceSoFar - v[i] + firstBuySellProfit[i-1]);
+    }
+    return maxProfit;
+  }
 };
 
 

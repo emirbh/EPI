@@ -114,31 +114,6 @@ int main() {
         exit(0);
         break;
       }
-      /* ---- 45 ------------------------------------------------------------ */
-      case 45: {
-        cout << "EPI: ";
-        cout << "Subset Sum" << endl;
-
-        vector<unsigned long> v;
-        readArray(v);
-        printContainer(v, "input");
-        unsigned long n = v.size();
-        unsigned long nsum;
-        cin >> nsum;
-
-        /*
-         *  General subset sum using either
-         *  (i) recursive/exponential approach
-         *  (ii) DP/quadratic approach
-         */
-        bool hasSubset = ulao.subsetSumExponential(v, n, nsum);
-        /*
-        bool hasSubset = ulao.subsetSumDP(v, n, nsum);
-         */
-        printContainer(v);
-        cout << "Has subset=" << nsum << " : " << hasSubset << endl;;
-        break;
-      }
       /* ---- 06 ------------------------------------------------------------ */
       case 6: {
         cout << "EPI: ";
@@ -322,9 +297,6 @@ int main() {
       }
       /* ---- 41 ------------------------------------------------------------ */
       case 41: {
-        /*
-         *  @TODO
-         */
         cout << "LeetCode:";
         cout << "Palindrome Pairs" << endl;
         vector<string> v;
@@ -369,7 +341,7 @@ int main() {
       }
       /* ---- 42 ------------------------------------------------------------ */
       /*
-       *  @MAYBE take a look
+       *  This is already covered @WHERE
        */
       case 42: {
         cout << "EPI 6.1.2:";
@@ -377,9 +349,66 @@ int main() {
         vector<string> v;
         readArray(v);
         printContainer(v);
+        break;
+      }
+      /* ---- 43 ------------------------------------------------------------ */
+      case 43: {
+        cout << "EPI: ";
+        cout << "Separate zero/non-zero and keep non-zero in order" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        ArrayOps<int> aops;
+        aops.separateZeroAndKeepOrder(v);
+        printContainer(v);
+        break;
+      }
+      /* ---- 44 ------------------------------------------------------------ */
+      case 44: {
+        cout << "EPI: ";
+        cout << "Sort numbers and letters, keep their places." << endl;
+        vector<char> v;
+        readArray(v);
+        printContainer(v);
+        ArrayOps<char> aops;
+        aops.sortCharsAndNumbers(v);
+        printContainer(v);
+        break;
+      }
+      /* ---- 45 ------------------------------------------------------------ */
+      case 45: {
+        cout << "EPI: ";
+        cout << "Subset Sum" << endl;
+
+        vector<unsigned long> v;
+        readArray(v);
+        printContainer(v, "input");
+        unsigned long n = v.size();
+        unsigned long nsum;
+        cin >> nsum;
+
         /*
-        nValuesSort(v);
+         *  General subset sum using either
+         *  (i) recursive/exponential approach
+         *  (ii) DP/quadratic approach
          */
+        bool hasSubset = ulao.subsetSumExponential(v, n, nsum);
+        /*
+        bool hasSubset = ulao.subsetSumDP(v, n, nsum);
+         */
+        printContainer(v);
+        cout << "Has subset=" << nsum << " : " << hasSubset << endl;;
+        break;
+      }
+      /* ---- 46 ------------------------------------------------------------ */
+      case 46: {
+        cout << "EPI: ";
+        cout << "Max profit from maximum two trades" << endl;
+        vector<unsigned long> v;
+        readArray(v);
+        printContainer(v, "input");
+        unsigned long maxProfit = ulao.maxProfitWithTwoTrades(v);
+        cout << "Max profit =" << maxProfit << endl;;
         break;
       }
     }

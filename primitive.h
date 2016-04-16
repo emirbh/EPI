@@ -247,6 +247,23 @@ class PrimitiveOps {
 
     return part + divide(x - part * y, y, level + 1);
   }
+
+  static bool isDecimalPalindrome(T x) {
+    bool ret = false;
+    int numDigits = static_cast<int>(floor(log10(x))) + 1;
+    int msdMask = static_cast<int>(pow(10, numDigits-1));
+    iLog(0, "%10.10f numDigits = %d, msdMark = %d", x, numDigits, msdMask);
+    for(int i = 0; i < numDigits/2; i++) {
+      iLog(i, "%d : Compare %d and %d", x, x / msdMask, x % 10);
+      if(x / msdMask != x % 10) {
+        return false;
+      }
+      x %= msdMask;
+      x /= 10;
+      msdMask /= 100;
+    }
+    return ret;
+  }
 };
 
 /******************************************************************************* *  class BigInt
