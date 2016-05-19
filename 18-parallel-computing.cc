@@ -72,6 +72,54 @@ int main() {
         sleep_for(milliseconds(10000));
         break;
       }
+      /* ---- 20 ------------------------------------------------------------ */
+      case 20: {
+        cout << "EPI: ";
+        cout << "Two threads incrementing" << endl;
+        using namespace TwoThreadsIncrementing;
+        int n;
+        cin >> n;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        int threadId = 0;
+        thread t1(increment, n, ++threadId);
+        thread t2(increment, n, ++threadId);
+        t1.join();
+        t2.join();
+        cout << "Counter = " << counter << endl;
+        break;
+      }
+      /* ---- 22 ------------------------------------------------------------ */
+      case 22: {
+        cout << "EPI: ";
+        cout << "Two threads incrementing" << endl;
+        using namespace TwoThreadsIncrementing;
+        int n;
+        cin >> n;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        int threadId = 0;
+        thread t1(increment, n, ++threadId);
+        thread t2(increment, n, ++threadId);
+        t1.join();
+        t2.join();
+        cout << "Counter = " << counter << endl;
+        break;
+      }
+      /* ---- 23 ------------------------------------------------------------ */
+      case 23: {
+        cout << "EPI: ";
+        cout << "Odd Even Turn" << endl;
+        int n;
+        cin >> n;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        OddEvenTurn oe(n);
+        thread t1 = oe.createThread(true);
+        thread t2 = oe.createThread(false);
+        t1.join();
+        t2.join();
+        /*
+         */
+        break;
+      }
       /* ---- -1 ------------------------------------------------------------ */
       default: {
         break;

@@ -35,7 +35,8 @@ TESTS = 05-primitive-types \
 				15-meta-algorithms \
 				16-algorithms-on-graphs \
 				17-intractability \
-				18-parallel-computing
+				18-parallel-computing \
+				25-honors-class
 
 # All headers.  Usually you shouldn't change this definition.
 HEADERS = $(SRC_DIR)/*.h \
@@ -83,6 +84,8 @@ SRCS_ = $(SRC_DIR)/*.cc $(SRC_DIR)/*.h $(HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES) -c $(SRC_DIR)/17-intractability.cc
 18-parallel-computing.o : $(SRC_DIR)/18-parallel-computing.cc $(HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES) -c $(SRC_DIR)/18-parallel-computing.cc
+25-honors-class.o : $(SRC_DIR)/25-honors-class.cc $(HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES) -c $(SRC_DIR)/25-honors-class.cc
 
 #
 #	Targets
@@ -115,6 +118,8 @@ SRCS_ = $(SRC_DIR)/*.cc $(SRC_DIR)/*.h $(HEADERS)
 17-intractability : 17-intractability.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 18-parallel-computing : 18-parallel-computing.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+25-honors-class : 25-honors-class.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 

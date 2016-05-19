@@ -93,6 +93,18 @@ int main() {
         cout << "k-th element = " << kth << endl;
         break;
       }
+      /* ---- 09 ------------------------------------------------------------ */
+      case 9: {
+        cout << "EPI: ";
+        cout << "Calculate Square Root" << endl;
+        int i;
+        double d;
+        cin >> i >> d;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "root(" << i << ")=" << SquareRoot::calculate(i) << endl;
+        cout << "root(" << d << ")=" << SquareRoot::calculate(d) << endl;
+        break;
+      }
       /* ---- 10 ------------------------------------------------------------ */
       case 10: {
         cout << "EPI: ";

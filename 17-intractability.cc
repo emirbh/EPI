@@ -73,7 +73,8 @@ int main() {
          */
         int exp;
         cin >> exp;
-        MultiplicationMinimum mm(exp);
+        list<int> l = MultiplicationMinimum::geList(exp);
+        printContainer(l, "exponent list");
         break;
       }
       default: {

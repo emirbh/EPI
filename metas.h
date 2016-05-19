@@ -24,6 +24,8 @@ using std::tuple;
 using std::get;
 using std::abs;
 using std::stack;
+using std::partial_sum;
+using std::upper_bound;
 
 #include "idebug.h"
 
@@ -456,5 +458,79 @@ class LargestRectangle {
   }
 };
 
+/*******************************************************************************
+ *  namespace LongestSubarrayEqualLessThanK
+ */
+namespace LongestSubarrayEqualLessThanK {
+  template <typename T>
+  pair<T,T> calculate(vector<T> v, T k) {
+    vector<T> prefixSum;
+    partial_sum(v.cbegin(), v.cend(), back_inserter(prefixSum));
+    printContainer(prefixSum, "prefixSum");
+
+    vector<T> minPrefixSum(prefixSum);
+    for(int i = (int) v.size()-2; i>= 0; i--) {
+      minPrefixSum[i] = min(minPrefixSum[i], minPrefixSum[i+1]);
+    }
+    printContainer(minPrefixSum, "minPrefixSum");
+
+    pair<T,T> idxes{0,
+                    upper_bound(minPrefixSum.cbegin(),minPrefixSum.cend(),k)
+                        - minPrefixSum.cbegin() + 1};
+    /*
+     *  @TODO finish this
+     */
+    for(int i = 0; i < (int) prefixSum.size(); i++) {
+    }
+    return idxes;
+  }
+};
+
+/*******************************************************************************
+ *  class FloydWarshallAllPairsShortestPaths
+ */
+namespace FloydWarshallAllPairsShortestPaths {
+  vector<vector<int>> calculate(vector<vector<int>> &m) {
+    /*
+     */
+    int maxInt = numeric_limits<int>::max();
+    /*
+     *  allocate matrix
+     */
+    vector<vector<int>> asp(m.size(), vector<int>(m.size(), maxInt));
+    /*
+     *  Set path to self to 0
+     */
+    for(int i = 0; i < (int) m.size(); i++) {
+      asp[i][i] = 0;
+    }
+    /*
+     *  Set weights
+     */
+    for(int i = 0; i < (int) m.size(); i++) {
+      asp[m[i][0]][m[i][1]] = m[i][2];
+    }
+    printMatrix(asp, "initialized matrix");
+    /*
+     *  Calculate
+     */
+    for(int k = 0; k < (int) m.size(); k++) {
+      for(int i = 0; i < (int) m.size(); i++) {
+        for(int j = 0; j < (int) m.size(); j++) {
+          if(!(asp[i][k] != maxInt && asp[k][j] != maxInt)) {
+            continue;
+          }
+          iLog(0, "%d:%d:%d\t->\t%d + %d < %d ?", i, j, k,
+               asp[i][k], asp[k][j], asp[i][j]);
+          if(asp[i][k] + asp[k][j] < asp[i][j]) {
+            asp[i][j] = asp[i][k] + asp[k][j];
+          }
+        }
+      }
+    }
+    printMatrix(asp, "calculated matrix");
+    return asp;
+  }
+};
 
 #endif /* __METAS_H__ */

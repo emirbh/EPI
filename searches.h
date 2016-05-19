@@ -145,10 +145,10 @@ T computeCompletionSearch(vector<T> &v, T sum) {
     return sum/v.size();
   }
   int idx = lower - funcSigma.cbegin() - 1;
-  iLog(0, "Index of last good value value %d (%d)", idx, v[idx]);
+  iLog(0, "Index of last good value %d [%d]", idx, v[idx]);
   sigma = (sum - prefixSum[idx]) / (v.size() - 1 - idx);;
   return sigma;
-} 
+}
 
 /*******************************************************************************
  *
@@ -169,9 +169,9 @@ T findKthInTwoArrays(vector<T> A, vector<T> B, int k) {
     int x = b + ((t - b) / 2);
     iLog(0, "x=%d", x);
     int A_x_1 = (x <= 0 ? numeric_limits<int>::min() : A[x - 1]);
-    int A_x = (x >= A.size() ? numeric_limits<int>::max() : A[x]);
+    int A_x = (x >= (int)A.size() ? numeric_limits<int>::max() : A[x]);
     int B_k_x_1 = (k - x <= 0 ? numeric_limits<int>::min() : B[k - x - 1]);
-    int B_k_x = (k - x >= B.size() ? numeric_limits<int>::max() : B[k - x]);
+    int B_k_x = (k - x >= (int)B.size() ? numeric_limits<int>::max() : B[k - x]);
     iLog(1, "A_x_1   = %d", A_x_1);
     iLog(1, "A_x     = %d", A_x);
     iLog(1, "B_k_x_1 = %d", B_k_x_1);
@@ -193,5 +193,60 @@ T findKthInTwoArrays(vector<T> A, vector<T> B, int k) {
   int B_k_b_1 = k - b - 1 < 0 ? numeric_limits<int>::min() : B[k - b - 1];
   return max(A_b_1, B_k_b_1);
 }
+
+/*******************************************************************************
+ *
+ *  namespace SquareRoot()
+ */
+namespace SquareRoot {
+  int calculate(int k) {
+    int left = 0, right = k;
+    while(left <= right) {
+      long mid = left + ((right - left) / 2);
+      iLog(1, "l=%d r=%d -> m=%d", left, right, mid);
+      long midSquared = mid * mid;
+      if (midSquared <= k) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    return left - 1;
+  }
+
+  typedef enum { SMALLER, EQUAL, LARGER } Ordering;
+
+  Ordering Compare(double a, double b) {
+    // Uses normalization for precision problem.
+    double diff = (a - b) / b;
+    return diff < -numeric_limits<double>::epsilon()
+               ? SMALLER
+               : diff > numeric_limits<double>::epsilon() ? LARGER : EQUAL;
+  }
+
+  double calculate(double x) {
+    // Decides the search range according to x's value relative to 1.0.
+    double left, right;
+    if (x < 1.0) {
+      left = x, right = 1.0;
+    } else {  // x >= 1.0.
+      left = 1.0, right = x;
+    }
+
+    // Keeps searching as long as left < right, within tolerance.
+    while (Compare(left, right) == SMALLER) {
+      double mid = left + 0.5 * (right - left);
+      double mid_squared = mid * mid;
+      if (Compare(mid_squared, x) == EQUAL) {
+        return mid;
+      } else if (Compare(mid_squared, x) == LARGER) {
+        right = mid;
+      } else {
+        left = mid;
+      }
+    }
+    return left;
+  }
+};
 
 #endif /* __SEARCHES_H__ */

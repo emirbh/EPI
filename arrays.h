@@ -330,6 +330,36 @@ class ArrayOps {
     }
   }
 
+  void QSORT_ATTEMP_sortCharsAndNumbers(vector<T> &v) {
+    T A[v.size()];
+    copy(v.begin(), v.end(), A);
+
+    qsort(A, v.size(), sizeof(T),
+          [](const void *p1, const void *p2) -> int {
+           int ret = 0;
+           (void) p1;
+           (void) p2;
+           char a = *((char *) p1);
+           char b = *((char *) p2);
+           if(a >= '0' && a <= '9' && b >= '0' && b <= '9') {
+             ret = a - b;
+           } else if((a >= '0' && a <= '9') || (b >= '0' && b <= '9')) {
+             ret = 0;
+           } else {
+             ret = a - b;
+           }
+           iLog(1, "Compare %d : %d = %d", a, b, ret);
+           /*
+            */
+           return ret;
+         });
+
+    for(int i = 0; i < (int) v.size(); i++) {
+      cout << A[i] << " ";
+    }
+    cout << endl;
+  }
+
   void sortCharsAndNumbers(vector<T> &v) {
     vector<pair<int,T *>> vp;
     for(int i = 0; i < (int) v.size(); i++) {
@@ -574,6 +604,18 @@ class NumMatrix {
   }
  private:
   vector<vector<int>> &matrix;
+};
+
+/*******************************************************************************
+ *  namespace QuickSort
+ */
+namespace Quicksort {
+  template <typename T>
+  int partition(vector<T> v, int lo, int hi) {
+    int i = lo, j = hi + 1;
+    T value = v[lo];
+    return j;
+  }
 };
 
 #endif /* __ARRAYS_H__ */

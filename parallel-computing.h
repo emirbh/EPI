@@ -296,4 +296,90 @@ namespace ReadersWriters1 {
   };
 };
 
+/*******************************************************************************
+ *  class Semaphore
+ */
+class Semaphore {
+  Semaphore(int maxAvailable) : maxAvailable(maxAvailable), taken(0) {
+  }
+
+ public:
+  void acquire() {
+    unique_lock<mutex> lock(mtx);
+    while(taken == maxAvailable) {
+      cond.wait(lock);
+    }
+    ++taken;
+  }
+
+  void release() {
+    lock_guard<mutex> lock(mtx);
+    --taken;
+    cond.notify_all();
+  }
+
+ protected:
+  int maxAvailable;
+  int taken;
+  condition_variable cond;
+  mutex mtx;
+};
+
+/*******************************************************************************
+ *  namespace TwoThreadsIncrementing
+ */
+namespace TwoThreadsIncrementing {
+  static int counter = 0;
+
+  void increment(int n, int threadId) {
+    for(int i = 0; i < n; i++) {
+      counter++;
+      cout << "Thread : " << threadId << " = " << counter << endl;
+    }
+  }
+};
+
+/*******************************************************************************
+ *  class OddEvenTurn
+ */
+class OddEvenTurn {
+ public:
+  OddEvenTurn(int n) : count(n), turn(true) {
+  }
+
+  void threadEntry(bool odd) {
+    for(int i = 1; i <= count; i++) {
+      if((i % 2 == 0) == odd) {
+        continue;
+      }
+      wait(odd);
+      cout << "Thread " << odd << " : " << i << endl;
+      toggle();
+    }
+  }
+
+  thread createThread(bool odd) {
+    return thread([=] { threadEntry(odd); });
+  }
+
+ protected:
+  int count;
+  bool turn;
+  mutex mtx;
+  condition_variable cond;
+
+  void wait(bool val) {
+    unique_lock<mutex> lock(mtx);
+    while(turn != val) {
+      cond.wait(lock);
+    }
+  }
+
+  void toggle() {
+    lock_guard<mutex> lock(mutex);
+    turn = !turn;
+    cond.notify_one();
+  }
+};
+
 #endif /* __PARALLEL_COMPUTING_H__ */

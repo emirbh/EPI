@@ -369,10 +369,10 @@ int main() {
         cout << "Sort numbers and letters, keep their places." << endl;
         vector<char> v;
         readArray(v);
-        printContainer(v);
+        printContainer(v, "Pre-Sort");
         ArrayOps<char> aops;
         aops.sortCharsAndNumbers(v);
-        printContainer(v);
+        printContainer(v, "Post-Sort");
         break;
       }
       /* ---- 45 ------------------------------------------------------------ */

@@ -259,12 +259,13 @@ class ExpressionSynthesis {
 class MultiplicationMinimum {
  public:
   MultiplicationMinimum(int exp) {
-   list<int> l = getMultMinHelper(exp);
+    /*
+   list<int> l = getList(exp);
    printContainer(l);
+     */
   }
 
- protected:
-  list<int> getMultMinHelper(int n) {
+  static list<int> geList(int n) {
     list<int> init_list;
     init_list.emplace_back(1) ;
 
@@ -273,20 +274,25 @@ class MultiplicationMinimum {
     list<int> min_exp;
     int shortest_size = numeric_limits<int>::max() ;
 
-    while (exp_lists.empty () == false) {
-      list<int> exp = exp_lists .  front () ;
-      exp_lists .  pop_front () ;
-      for (const int &i : exp) {
-        for (const int &j : exp) {
+    while(exp_lists.empty () == false) {
+      list<int> exp = exp_lists.front() ;
+      printContainer(exp, "exp");
+      exp_lists.pop_front() ;
+      for(const int &i : exp) {
+        for(const int &j : exp) {
           int sum = i + j ;
-          if (shortest_size > (int) exp.size() + 1) {
-            if (sum == n) {
+          iLog(1, "sum [%d] = i [%d] + j [%d]", sum, i, j);
+          if(shortest_size > (int) exp.size() + 1) {
+            iLog(2, "shortest[%d] > exp.size() [%d] + 1",
+                 shortest_size, exp.size());
+            if(sum == n) {
               min_exp = exp;
               min_exp.emplace_back(sum) ;
               shortest_size = exp.size() + 1;
+              iLog(3, "shortest = %d", shortest_size);
             } else if (sum < n && sum > exp.back()) {
               list<int> ext = exp;
-              ext .  emplace_back(sum) ;
+              ext.emplace_back(sum) ;
               exp_lists.emplace_back(ext) ;
             }
           }
@@ -295,6 +301,7 @@ class MultiplicationMinimum {
     }
     return min_exp;
   }
+ protected:
 };
 
 /*******************************************************************************
@@ -313,7 +320,7 @@ class MostEvenSplit {
           iLog(1, "Add %d to isOk", i);
           isOk.emplace(i);
         }
-      } 
+      }
     }
     for(int i = sum/2; i > 0; i--) {
       iLog(0, "Check if %d exists", i);

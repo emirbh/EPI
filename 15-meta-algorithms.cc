@@ -74,6 +74,22 @@ int main() {
         cout << "Max = " << result << endl;
         break;
       }
+      /* ---- 07 ------------------------------------------------------------ */
+      case 7: {
+        cout << "EPI: ";
+        cout << "Longest subarray whose sum <= k" << endl;
+        vector<int> v;
+        readArray(v);
+        printContainer(v);
+        int k;
+        cin >> k;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        using LongestSubarrayEqualLessThanK::calculate;
+        pair<int,int> x = calculate(v, k);
+        cout << "longest subarray = " << x.first << ":" <<x.second << endl;
+        cout << "NOTCOMPLETED" << endl;
+        break;
+      }
       /* ---- 08 ------------------------------------------------------------ */
       case 8: {
         cout << "EPI: ";
@@ -94,6 +110,16 @@ int main() {
         printContainer(v);
         int result = MaxSubArray<int>::calculateStraight(v);
         cout << "Max = " << result << endl;
+        break;
+      }
+      /* ---- 41 ------------------------------------------------------------ */
+      case 41: {
+        cout << "EPI: ";
+        cout << "Floyd-Warshall All Pairs Shortest Paths" << endl;
+        vector<vector<int>> m;
+        readMatrix(m);
+        printMatrix(m);
+        auto result = FloydWarshallAllPairsShortestPaths::calculate(m);
         break;
       }
       default: {

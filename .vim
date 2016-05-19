@@ -1,4 +1,4 @@
-rm .*.swp ; rm IN/.*.swp ; vim .vim \
+find . -name '.*.swp' -exec rm {} \; -print ; vim .vim \
     Makefile \
     idebug.h \
     arrays.h \
@@ -6,6 +6,7 @@ rm .*.swp ; rm IN/.*.swp ; vim .vim \
     graphs.h \
     heaps.h \
     hashes.h \
+    honors.h \
     intractability.h \
     llists.h \
     metas.h \
@@ -30,4 +31,5 @@ rm .*.swp ; rm IN/.*.swp ; vim .vim \
     16-algorithms-on-graphs.cc \
     17-intractability.cc \
     18-parallel-computing.cc \
+    25-honors-class.cc \
     README.txt
